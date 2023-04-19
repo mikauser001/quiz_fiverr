@@ -15,9 +15,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from views import *
+from .views import *
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("quiz", )
-]
+    path("quiz/<int:pk>", detail_view, name="detail",),
+    path("quiz/<int:pk>/u", QuizUpdateView.as_view(), name="update"),
+
+    path("quiz/all", list_view, name="list"),
+    path("quiz/create", CreateView.as_view(), name="create"),
+    path("quiz/q", search_view, name="search"),
+    path("question/create", CreateViewQuest.as_view(), name="create-q"),
+
+    path("question/<int:pk>", question_view, name="question"),
+    path("question/<int:pk>/u", QuestionUpdateView.as_view(), name="question-u"),
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

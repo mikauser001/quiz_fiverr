@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<main>
+  <div class="container py-4">
+    <header class="pb-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+        <h1 class="display-5 fw-bold">{{ q.name }} by {{ q.mod }}</h1>
+      </a>
+    </header>
+
+    <div class="p-5 mb-4 rounded-3">
+      <div class="row">
+          <div class="col-6">
+
+        <h1 class="fs-2">Description</h1>
+        <p class="col-md-12 fs-4 ms-2">
+            {{ q.description }}
+        </p>
+        <a class="btn btn-outline-primary btn-sm mt-2 ms-2" href="{% url 'update' q.pk %}">Update Quiz</a>
+      </div>
+      </div>
+          <div class="col-6">
+
+      </div>
+
+    </div>
+
+    <div class="row align-items-md-stretch">
+      <div class="col-md-6 bg-dark">
+        <div class="h-100 p-5 text-light rounded-3">
+          <h2>Questions</h2>
+            <ul>
+                {% for qs in q.questions.all %}
+                <li class="text-light">
+                    <span class="text-light">
+                        <a class="text-light" href="{{ qs.get_absolute_url }}">{{ qs }}</a> <!--todo edit pk-->
+                    </span>
+                </li>
+                {% endfor %}
+            </ul>
+          <a href="" class="btn btn-outline-info" type="button">Edit all question</a> <!--todo-->
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+          <h2>Participants</h2>
+          <ul>
+              {% for h in q.participants.all %}
+             <li>
+                 {% if h.is_mod %}<b>{{ h.name }} (Moderator) </b>{% else %} {{ h.name }} {% endif %}{% empty %} <li>Currently 0 participants
+             </li>
+          {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <footer class="pt-3 mt-4 text-body-secondary border-top">
+      © 2023
+    </footer>
+  </div>
+</main>
+{% endblock body %}

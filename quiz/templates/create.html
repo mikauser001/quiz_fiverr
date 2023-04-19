@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+{% if quiz %}
+<p>
+  Note that you need to first <a href="{% url 'create-q' %}">create questions</a>. Then you can simply reuse them across <b>ALL</b> quizs.
+</p>
+{% endif %}
+
+<form method="post">
+  {% csrf_token %}
+  {{ form|crispy }}
+  <br><button type="submit">Submit</button>
+</form>
+
+{% endblock body %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block body %}
+    <header class="pb-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+       <span class="fs-4">List of all created quiz's</span>
+      </a>
+    </header>
+
+    {% for quiz in all %}
+        {% include "list_looping.html" with r="1, 2, 3"|random %}
+    {% empty %}
+    <b>
+        Create your first quiz <a href="{% url 'create' %}">Here</a>
+    </b>
+    {% endfor %}
+
+{% endblock body %}

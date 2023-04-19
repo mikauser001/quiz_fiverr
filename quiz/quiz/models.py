@@ -1,13 +1,17 @@
 from django.db import models
 
 # Create your models here.
+from django.urls import reverse
 
 
 class Quiz(models.Model):
+
+    name = models.CharField(max_length=200)
     questions = models.ManyToManyField('quiz.Question')
-    mod = models.ForeignKey('user.CustomUser', on_delete=models.CASCADE)
+    mod = models.ForeignKey('user.CustomUser', on_delete=models.CASCADE, help_text="Who is the owner of this quiz?")
     participants = models.ManyToManyField('user.CustomUser', related_name="r_pac")
     description = models.TextField()
+    updated_at = models.DateTimeField(auto_now=True)
 
     @property
     def points(self):
@@ -23,6 +27,9 @@ class Quiz(models.Model):
         # todo
         return
 
+    def get_absolute_url(self):
+        return reverse("detail", kwargs={"pk": self.pk})
+
 
 class Question(models.Model):
     headline = models.CharField(max_length=2000)
@@ -30,6 +37,12 @@ class Question(models.Model):
     image_body = models.ImageField(null=True, blank=True)
     points = models.PositiveIntegerField()
     answer = models.TextField()
+
+    def get_absolute_url(self):
+        return reverse("question", kwargs={"pk": self.pk})
+
+    def __str__(self):
+        return self.headline + f" ({self.points} Points) "
 
 
 class Answer(models.Model):

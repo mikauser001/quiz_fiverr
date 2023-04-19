@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<span><a class="mb-2 btn btn-sm btn-primary" href="{% url 'question-u' object.pk %}">
+    Edit question
+</a>
+<a class="ms-2 mb-2 btn btn-sm btn-secondary" href="{% url 'question-u' object.pk %}">
+    Edit answer
+</a></span>
+<div class="card mt-4">
+    <div class="card-title text-center">
+        <h2 class="display-5">{{ object.headline }}</h2>
+        <hr>
+    </div>
+    <div class="card-body ms-2">
+{% if object.image_body %}
+    <div class="text-center mt-4 mb-4">
+        <img src="{{ object.image_body.url }}" width="auto" height="500">
+    </div>
+        <br>
+        <hr>
+
+{% endif %}
+    <p class="lead mt-2">{{ object.char_body }}</p>
+        <span class="mt-4 mb-4 display-7" id="htmx">
+        </span>
+   </div>
+   <div class="card-footer bg-dark text-light text-center text-small">
+       <small class="display-8"><a hx-get="" hx-target="#htmx">Reveal Answer</a></small>
+   </div>
+</div>
+<br>
+<br>
+<br>
+<h3 class="text-emphasis mb-2">More questions</h3>
+    <ul class="list-group list-group-flush">{% for q in others %}
+        <li class="list-group-item"><a class="text-dark" href="{{ q.get_absolute_url }}">{{ q }}</a></li>{% endfor %}
+    </ul>
+{% endblock body %}
+
+
+
+
