@@ -20,12 +20,16 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{% url 'list' %}">All quiz</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item ms-2">
           <a class="nav-link" href="{% url 'create' %}">Create a quiz</a>
         </li>
-         <li class="nav-item">
+         <li class="nav-item ms-2">
           <a class="nav-link" href="{% url 'create-q' %}">Create a question</a>
-        </li>
+</li>
+{% if request.user.is_staff %}
+         <li class="nav-item ms-4">
+          <a class="nav-link" href="/admin">Admin</a>
+        </li>{% endif %}
       </ul>
       <form class="d-flex" method='get' id="q" role="search" action={% url 'search' %}>
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search a quiz">

@@ -24,7 +24,7 @@ urlpatterns = [
     path("quiz/<int:pk>", detail_view, name="detail",),
     path("quiz/<int:pk>/u", QuizUpdateView.as_view(), name="update"),
 
-    path("quiz/all", list_view, name="list"),
+    path("", list_view, name="list"),
     path("quiz/create", CreateView.as_view(), name="create"),
     path("quiz/q", search_view, name="search"),
     path("question/create", CreateViewQuest.as_view(), name="create-q"),
